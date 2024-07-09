@@ -80,7 +80,7 @@ def create_crops(imgA, imgB, size):
                 imgA_crops.append(imgA[s_h:e_h, s_w:e_w, :])
             if len(imgB.shape) == 2:
                 tmp_imgB = imgB[s_h:e_h, s_w:e_w, None]
-                imgA_crops.append(np.concatenate([
+                imgB_crops.append(np.concatenate([
                     tmp_imgB, tmp_imgB, tmp_imgB,
                 ], axis=2))
             else:
