@@ -71,8 +71,23 @@ def create_crops(imgA, imgB, size):
             s_w = int(i*c_w - i*stride_w)
             if(i==(cols-1)): s_w = w - c_w
             e_w = s_w + c_w
-            imgA_crops.append(imgA[s_h:e_h, s_w:e_w, :])
-            imgB_crops.append(imgB[s_h:e_h, s_w:e_w, :])
+            if len(imgA.shape) == 2:
+                tmp_imgA = imgA[s_h:e_h, s_w:e_w, None]
+                imgA_crops.append(np.concatenate([
+                    tmp_imgA, tmp_imgA, tmp_imgA,
+                ], axis=2))
+            else:
+                imgA_crops.append(imgA[s_h:e_h, s_w:e_w, :])
+            if len(imgB.shape) == 2:
+                tmp_imgB = imgB[s_h:e_h, s_w:e_w, None]
+                imgA_crops.append(np.concatenate([
+                    tmp_imgB, tmp_imgB, tmp_imgB,
+                ], axis=2))
+            else:
+                imgB_crops.append(imgB[s_h:e_h, s_w:e_w, :])
+                
+            # imgA_crops.append(imgA[s_h:e_h, s_w:e_w, :])
+            # imgB_crops.append(imgB[s_h:e_h, s_w:e_w, :])
     print('Sliding crop finished. %d images created.' %len(imgA_crops))
     return imgA_crops, imgB_crops
 
